@@ -1,6 +1,20 @@
+import React, { useState } from 'react';
 import './App.css';
 
 function App() {
+  const [audioPlaying, setAudioPlaying] = useState(false);
+
+  const playAudio = () => {
+    const audio = new Audio('/Recording.m4a'); // Update the file path if necessary
+    audio.play();
+    setAudioPlaying(true);
+
+    audio.addEventListener('ended', () => {
+      audio.currentTime = 0;
+      audio.play();
+    });
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -8,14 +22,13 @@ function App() {
         <p>
           monke
         </p>
-        <a
+        <button
           className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+          onClick={playAudio}
+          disabled={audioPlaying}
         >
-          Learn React
-        </a>
+          Play Audio
+        </button>
       </header>
     </div>
   );
